@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.sunbird</groupId>
+        <artifactId>sunbird-learning-service</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+    
+    <artifactId>notification-service-parent</artifactId>
+    <packaging>pom</packaging>
+    <name>Notification Service</name>
+    <description>Notification service for Sunbird</description>
+    
+    <properties>
+        <project.version>1.0.0</project.version>
+        <play2.plugin.version>1.0.0-rc5</play2.plugin.version>
+        <jackson.version>2.14.3</jackson.version>
+        <pekko.version>1.0.3</pekko.version>
+        <junit.version>4.13.1</junit.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
+        <play2.version>3.0.5</play2.version>
+        <scala.version>2.13.12</scala.version>
+        <scala.major.version>2.13</scala.major.version>
+        <powermock.version>2.0.9</powermock.version>
+        <commons-collections4.version>4.3</commons-collections4.version>
+        <surefire.plugin.version>3.0.0</surefire.plugin.version>
+        <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
+        <guice.version>5.1.0</guice.version>
+        <slf4j.version>2.0.13</slf4j.version>
+        <kafka.version>3.7.1</kafka.version>
+        <logback.version>1.4.14</logback.version>
+        <netty.version>4.1.112.Final</netty.version>
+    </properties>
+    
+    <modules>
+        <module>notification-sdk</module>
+        <module>all-actors</module>
+        <module>service</module>
+    </modules>
+    
+    <dependencies>
+        <!-- Logging (SLF4J + Logback) -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback.contrib</groupId>
+            <artifactId>logback-json-classic</artifactId>
+            <version>0.1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.danielwegener</groupId>
+            <artifactId>logback-kafka-appender</artifactId>
+            <version>0.2.0-RC2</version>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.google.code.play2-maven-plugin</groupId>
+                    <artifactId>play2-maven-plugin</artifactId>
+                    <version>${play2.plugin.version}</version>
+                    <extensions>true</extensions>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-maven-plugin.version}</version>
+                    <configuration>
+                        <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+                        <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+                        <excludes>
+                            <exclude>**/common/**</exclude>
+                            <exclude>**/org/sunbird/request/*</exclude>
+                            <exclude>**/org/sunbird/utils/*</exclude>
+                            <exclude>**/org/sunbird/auth/verifier/*</exclude>
+                            <exclude>**/routes/**</exclude>
+                            <exclude>**/Reverse*/**</exclude>
+                            <exclude>**/*.javascript/**</exclude>
+                        </excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>jacoco-initialize</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>jacoco-site</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
