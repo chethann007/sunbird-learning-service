@@ -1,0 +1,84 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Eclipse
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+local.properties
+.loadpath
+.recommenders
+
+# Scala
+*.class
+*.log
+
+# Play Framework
+logs/
+project/project/
+project/target/
+tmp/
+.history
+dist/
+/.idea
+/*.iml
+/out
+/.idea_modules
+/.classpath
+/.project
+/RUNNING_PID
+/.settings
+.cache
+.cache-main
+.cache-tests
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build artifacts
+*.zip
+*.tar.gz
+*.jar
+!gradle-wrapper.jar
+
+# Test coverage
+coverage-reports/
+jacoco-unit.exec
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
