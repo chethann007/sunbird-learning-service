@@ -14,6 +14,10 @@
     <version>1.0-SNAPSHOT</version>
     <name>Sunbird Platform Common</name>
 
+    <properties>
+        <mockito.version>5.11.0</mockito.version>
+    </properties>
+
     <dependencies>
         <!-- Jackson Dependencies -->
         <dependency>
@@ -332,7 +336,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.11.0</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- Apache Kafka -->
