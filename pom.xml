@@ -78,7 +78,12 @@
                     <!--<reuseForks>false</reuseForks>-->
                     <useSystemClassLoader>false</useSystemClassLoader>
                     <argLine>
-                        @{argLine} --illegal-access=permit
+                        @{argLine}
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/java.util=ALL-UNNAMED
+                        --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+                        --add-opens java.base/java.text=ALL-UNNAMED
+                        --add-opens java.desktop/java.awt.font=ALL-UNNAMED
                     </argLine>
                     <properties>
                         <property>
@@ -95,7 +100,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.8</version>
+                <version>0.8.12</version>
                 <configuration>
                     <destFile>${basedir}/target/jacoco-unit.exec</destFile>
                     <dataFile>${basedir}/target/jacoco-unit.exec</dataFile>
