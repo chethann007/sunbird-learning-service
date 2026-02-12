@@ -28,6 +28,11 @@ import org.sunbird.request.RequestContext;
 import org.sunbird.response.ResponseCode;
 import org.apache.velocity.VelocityContext;
 
+/**
+ * Unit tests for {@link ProjectUtil} class.
+ * Covers utility methods for string manipulation, date formatting,
+ * validation, and configuration handling.
+ */
 public class ProjectUtilTest {
 
   @Before
@@ -40,6 +45,10 @@ public class ProjectUtilTest {
     // Cleanup if needed
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#isStringNullOREmpty(String)} correctly identifies
+   * null or empty strings (including those with only whitespace).
+   */
   @Test
   public void testIsStringNullOREmpty() {
     assertTrue(ProjectUtil.isStringNullOREmpty(null));
@@ -48,18 +57,28 @@ public class ProjectUtilTest {
     assertFalse(ProjectUtil.isStringNullOREmpty("valid"));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#getFormattedDate()} returns a non-null formatted date string.
+   */
   @Test
   public void testGetFormattedDate() {
     String date = ProjectUtil.getFormattedDate();
     assertNotNull(date);
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#getTimeStamp()} returns a non-null timestamp.
+   */
   @Test
   public void testGetTimeStamp() {
     Date date = ProjectUtil.getTimeStamp();
     assertNotNull(date);
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#formatDate(Date)} formats a date correctly
+   * and returns null for null input.
+   */
   @Test
   public void testFormatDate() {
     Date now = new Date();
@@ -68,6 +87,9 @@ public class ProjectUtilTest {
     assertNull(ProjectUtil.formatDate(null));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#isEmailvalid(String)} correctly validates email addresses.
+   */
   @Test
   public void testIsEmailValid() {
     assertTrue(ProjectUtil.isEmailvalid("test@example.com"));
@@ -77,24 +99,36 @@ public class ProjectUtilTest {
     assertFalse(ProjectUtil.isEmailvalid(""));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#createAuthToken(String, String)} generates a non-null token.
+   */
   @Test
   public void testCreateAuthToken() {
     String token = ProjectUtil.createAuthToken("user", "web");
     assertNotNull(token);
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#getUniqueIdFromTimestamp(int)} generates a non-null ID.
+   */
   @Test
   public void testGetUniqueIdFromTimestamp() {
     String id = ProjectUtil.getUniqueIdFromTimestamp(1);
     assertNotNull(id);
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#generateUniqueId()} generates a non-null unique ID.
+   */
   @Test
   public void testGenerateUniqueId() {
     String id = ProjectUtil.generateUniqueId();
     assertNotNull(id);
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#generateRandomPassword()} generates a password of correct length.
+   */
   @Test
   public void testGenerateRandomPassword() {
     String password = ProjectUtil.generateRandomPassword();
@@ -102,6 +136,9 @@ public class ProjectUtilTest {
     assertEquals(9, password.length());
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#validatePhoneNumber(String)} correctly validates basic phone number formats.
+   */
   @Test
   public void testValidatePhoneNumber() {
     assertTrue(ProjectUtil.validatePhoneNumber("1234567890"));
@@ -109,12 +146,18 @@ public class ProjectUtilTest {
     assertFalse(ProjectUtil.validatePhoneNumber("12345"));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#validatePhone(String, String)} validates phone numbers with country code logic.
+   */
   @Test
   public void testValidatePhone() {
     assertTrue(ProjectUtil.validatePhone("9876543210", "91"));
     assertFalse(ProjectUtil.validatePhone("123", "91"));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#validateCountryCode(String)} validates country codes.
+   */
   @Test
   public void testValidateCountryCode() {
     assertTrue(ProjectUtil.validateCountryCode("+91"));
@@ -122,12 +165,18 @@ public class ProjectUtilTest {
     assertFalse(ProjectUtil.validateCountryCode("invalid"));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#validateUUID(String)} validates UUID strings.
+   */
   @Test
   public void testValidateUUID() {
     assertTrue(ProjectUtil.validateUUID("550e8400-e29b-41d4-a716-446655440000"));
     assertFalse(ProjectUtil.validateUUID("invalid-uuid"));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#isDateValidFormat(String, String)} validates date strings against a format.
+   */
   @Test
   public void testIsDateValidFormat() {
     assertTrue(ProjectUtil.isDateValidFormat("yyyy-MM-dd", "2023-10-27"));
@@ -135,6 +184,9 @@ public class ProjectUtilTest {
     assertFalse(ProjectUtil.isDateValidFormat("yyyy-MM-dd", "invalid"));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#isUrlvalid(String)} validates URLs.
+   */
   @Test
   public void testIsUrlValid() {
       assertTrue(ProjectUtil.isUrlvalid("http://google.com"));
@@ -143,12 +195,18 @@ public class ProjectUtilTest {
       assertFalse(ProjectUtil.isUrlvalid("invalid-url"));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#calculatePercentage(double, double)} calculates percentage correctly.
+   */
   @Test
   public void testCalculatePercentage() {
     assertEquals(50.0, ProjectUtil.calculatePercentage(50, 100), 0.01);
     assertEquals(0.0, ProjectUtil.calculatePercentage(0, 100), 0.01);
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#calcualteAssessmentResult(double)} returns the correct grade based on percentage.
+   */
   @Test
   public void testCalcualteAssessmentResult() {
     assertEquals(AssessmentResult.gradeA, ProjectUtil.calcualteAssessmentResult(100));
@@ -160,6 +218,9 @@ public class ProjectUtilTest {
     assertEquals(AssessmentResult.gradeF, ProjectUtil.calcualteAssessmentResult(40));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#isNull(Object)} and {@link ProjectUtil#isNotNull(Object)} behave as expected.
+   */
   @Test
   public void testIsNullAndIsNotNull() {
     assertTrue(ProjectUtil.isNull(null));
@@ -168,17 +229,22 @@ public class ProjectUtilTest {
     assertFalse(ProjectUtil.isNotNull(null));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#formatMessage(String, Object...)} formats messages correctly.
+   */
   @Test
   public void testFormatMessage() {
     String msg = ProjectUtil.formatMessage("Hello {0}", "World");
     assertEquals("Hello World", msg);
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#isNotEmptyStringArray(String[])} returns correct boolean based on array content.
+   * Note: The logic implies returning true only if ALL elements are empty/null (based on previous analysis/implementation),
+   * or possibly false if ANY is non-empty. This test confirms the current implementation behavior.
+   */
   @Test
   public void testIsNotEmptyStringArray() {
-    // Note: The method name implies "is NOT empty", but the implementation returns true if the array contains ONLY empty strings/nulls.
-    // It returns false if it contains ANY non-empty string.
-    // This seems counter-intuitive based on the name, but we test the actual implementation behavior.
     assertFalse(ProjectUtil.isNotEmptyStringArray(new String[]{"val"}));
     assertTrue(ProjectUtil.isNotEmptyStringArray(new String[]{""}));
     assertTrue(ProjectUtil.isNotEmptyStringArray(new String[]{null}));
@@ -186,6 +252,9 @@ public class ProjectUtilTest {
     assertTrue(ProjectUtil.isNotEmptyStringArray(new String[]{"", null}));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#convertMapToJsonString(List)} converts a list of maps to a JSON string.
+   */
   @Test
   public void testConvertMapToJsonString() {
     List<Map<String, Object>> list = new ArrayList<>();
@@ -198,6 +267,9 @@ public class ProjectUtilTest {
     assertTrue(json.contains("value"));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#removeUnwantedFields(Map, String...)} removes specified keys from a map.
+   */
   @Test
   public void testRemoveUnwantedFields() {
     Map<String, Object> map = new HashMap<>();
@@ -208,6 +280,10 @@ public class ProjectUtilTest {
     assertTrue(map.containsKey("b"));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#convertJsonStringToMap(String)} parses a JSON string into a map.
+   * @throws IOException if parsing fails.
+   */
   @Test
   public void testConvertJsonStringToMap() throws IOException {
     String json = "{\"key\":\"value\"}";
@@ -216,6 +292,9 @@ public class ProjectUtilTest {
     assertEquals("value", map.get("key"));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#convertToRequestPojo(Request, Class)} converts a Request object to the target POJO type.
+   */
   @Test
   public void testConvertToRequestPojo() {
     Request request = new Request();
@@ -228,6 +307,9 @@ public class ProjectUtilTest {
     assertEquals("test", result.get("name"));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#getDateRange(int)} returns a map with start and end dates.
+   */
   @Test
   public void testGetDateRange() {
     Map<String, String> range = ProjectUtil.getDateRange(7);
@@ -239,6 +321,9 @@ public class ProjectUtilTest {
     assertTrue(emptyRange.isEmpty());
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#getFirstNCharacterString(String, int)} truncates string correctly.
+   */
   @Test
   public void testGetFirstNCharacterString() {
     assertEquals("abc", ProjectUtil.getFirstNCharacterString("abcdef", 3));
@@ -247,11 +332,17 @@ public class ProjectUtilTest {
     assertEquals("", ProjectUtil.getFirstNCharacterString(null, 3));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#createAndThrowServerError()} throws a {@link ProjectCommonException}.
+   */
   @Test(expected = ProjectCommonException.class)
   public void testCreateAndThrowServerError() {
     ProjectUtil.createAndThrowServerError();
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#createServerError(ResponseCode)} creates a {@link ProjectCommonException} with SERVER_ERROR code.
+   */
   @Test
   public void testCreateServerError() {
     ProjectCommonException e = ProjectUtil.createServerError(ResponseCode.SERVER_ERROR);
@@ -259,11 +350,17 @@ public class ProjectUtilTest {
     assertEquals(ResponseCode.SERVER_ERROR.getErrorCode(), e.getCode());
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#createAndThrowInvalidUserDataException()} throws a {@link ProjectCommonException}.
+   */
   @Test(expected = ProjectCommonException.class)
   public void testCreateAndThrowInvalidUserDataException() {
     ProjectUtil.createAndThrowInvalidUserDataException();
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#createClientException(ResponseCode)} creates a {@link ProjectCommonException} with CLIENT_ERROR code.
+   */
   @Test
   public void testCreateClientException() {
     ProjectCommonException e = ProjectUtil.createClientException(ResponseCode.CLIENT_ERROR);
@@ -271,6 +368,9 @@ public class ProjectUtilTest {
     assertEquals(ResponseCode.CLIENT_ERROR.getErrorCode(), e.getCode());
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#getConfigValue(String)} retrieves a configuration value.
+   */
   @Test
   public void testGetConfigValue() {
     ProjectUtil.propertiesCache.saveConfigProperty("key", "value");
@@ -278,6 +378,9 @@ public class ProjectUtilTest {
     assertEquals("value", val);
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#createIndex()} creates a valid ElasticSearch index name.
+   */
   @Test
   public void testCreateIndex() {
     String index = ProjectUtil.createIndex();
@@ -285,6 +388,9 @@ public class ProjectUtilTest {
     assertTrue(index.startsWith("telemetry.raw"));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#createCheckResponse(String, boolean, Exception)} generates a health check response map.
+   */
   @Test
   public void testCreateCheckResponse() {
     Map<String, Object> response = ProjectUtil.createCheckResponse("service", false, null);
@@ -294,6 +400,9 @@ public class ProjectUtilTest {
     assertFalse((Boolean) response.get(JsonKey.Healthy));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#getEkstepHeader()} returns headers including Authorization.
+   */
   @Test
   public void testGetEkstepHeader() {
     ProjectUtil.propertiesCache.saveConfigProperty(JsonKey.EKSTEP_AUTHORIZATION, "auth");
@@ -302,6 +411,9 @@ public class ProjectUtilTest {
     assertTrue(header.containsKey(JsonKey.AUTHORIZATION));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#getLmsUserId(String)} extracts the user ID from a federated ID.
+   */
   @Test
   public void testGetLmsUserId() {
     ProjectUtil.propertiesCache.saveConfigProperty(JsonKey.SUNBIRD_KEYCLOAK_USER_FEDERATION_PROVIDER_ID, "provider");
@@ -311,6 +423,11 @@ public class ProjectUtilTest {
     assertEquals("other", ProjectUtil.getLmsUserId("other"));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#registertag(String, String, Map)} makes an HTTP POST request
+   * by mocking the {@link HttpUtil} class.
+   * @throws Exception if an error occurs.
+   */
   @Test
   public void testRegisterTag() throws Exception {
     try (MockedStatic<HttpUtil> mockedHttpUtil = mockStatic(HttpUtil.class)) {
@@ -323,6 +440,9 @@ public class ProjectUtilTest {
     }
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#getContext(Map)} creates a VelocityContext with expected values.
+   */
   @Test
   public void testGetContext() {
     Map<String, Object> map = new HashMap<>();
@@ -336,6 +456,9 @@ public class ProjectUtilTest {
     assertEquals("url", context.get(JsonKey.ACTION_URL));
   }
 
+  /**
+   * Verifies that {@link ProjectUtil#setTraceIdInHeader(Map, RequestContext)} populates headers with trace information.
+   */
   @Test
   public void testSetTraceIdInHeader() {
     RequestContext context = new RequestContext();

@@ -21,8 +21,17 @@ import org.junit.Test;
 import org.mockito.MockedConstruction;
 import org.sunbird.common.ProjectUtil;
 
+/**
+ * Unit tests for {@link KafkaClient} class.
+ * Tests singleton initialization, message sending, and factory methods for producers/consumers.
+ * Uses {@link MockedConstruction} to mock Kafka clients during static initialization.
+ */
 public class KafkaClientTest {
 
+  /**
+   * Sets up static configuration and forces static initialization of {@link KafkaClient}
+   * with mocked KafkaProducer and KafkaConsumer to prevent real connection attempts.
+   */
   @BeforeClass
   public static void setUp() {
       // Set required properties to avoid errors during static init properties loading
@@ -44,6 +53,9 @@ public class KafkaClientTest {
       }
   }
 
+  /**
+   * Verifies that the singleton producer and consumer instances are initialized (non-null).
+   */
   @Test
   public void testStaticInitializationAndGetters() {
       // Since initialized in BeforeClass, these should be non-null (and are mocks)
@@ -51,6 +63,13 @@ public class KafkaClientTest {
       assertNotNull(KafkaClient.getConsumer());
   }
 
+  /**
+   * Verifies that {@link KafkaClient#send(String, String)} and {@link KafkaClient#send(String, String, String)}
+   * call the underlying producer's send method.
+   * Uses reflection to inject a spy/mock producer into the static field for verification.
+   * Ensures state is restored after test execution.
+   * @throws Exception if reflection or sending fails.
+   */
   @Test
   public void testSend() throws Exception {
     Producer<String, String> originalProducer = null;
@@ -89,6 +108,9 @@ public class KafkaClientTest {
     }
   }
 
+  /**
+   * Verifies that {@link KafkaClient#createProducer(String, String)} creates a new producer instance.
+   */
   @Test
   public void testCreateProducer() {
       try (MockedConstruction<KafkaProducer> mockedProducer = mockConstruction(KafkaProducer.class)) {
@@ -96,6 +118,9 @@ public class KafkaClientTest {
       }
   }
 
+  /**
+   * Verifies that {@link KafkaClient#createConsumer(String, String)} creates a new consumer instance.
+   */
   @Test
   public void testCreateConsumer() {
       try (MockedConstruction<KafkaConsumer> mockedConsumer = mockConstruction(KafkaConsumer.class)) {

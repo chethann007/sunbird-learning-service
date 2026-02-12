@@ -23,8 +23,17 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.PartitionInfo;
 
+/**
+ * Unit tests for {@link InstructionEventGenerator} class.
+ * Verifies event generation logic and delegation to {@link KafkaClient}.
+ */
 public class InstructionEventGeneratorTest {
 
+  /**
+   * Sets up test environment by ensuring {@link KafkaClient} is statically initialized
+   * with mocked dependencies to avoid runtime errors during tests.
+   * Skips tests if initialization fails (e.g., class not found).
+   */
   @BeforeClass
   public static void setUp() {
       // Set required properties to avoid errors during static init properties loading
@@ -49,6 +58,11 @@ public class InstructionEventGeneratorTest {
       }
   }
 
+  /**
+   * Verifies that {@link InstructionEventGenerator#pushInstructionEvent(String, Map)}
+   * generates an event and calls {@link KafkaClient#send(String, String)}.
+   * @throws Exception if generation or sending fails.
+   */
   @Test
   public void testPushInstructionEvent() throws Exception {
     try (MockedStatic<KafkaClient> mockedKafkaClient = mockStatic(KafkaClient.class)) {
@@ -64,6 +78,11 @@ public class InstructionEventGeneratorTest {
     }
   }
 
+  /**
+   * Verifies that {@link InstructionEventGenerator#pushInstructionEvent(String, String, Map)}
+   * generates an event and calls {@link KafkaClient#send(String, String, String)} with a key.
+   * @throws Exception if generation or sending fails.
+   */
   @Test
   public void testPushInstructionEventWithKey() throws Exception {
     try (MockedStatic<KafkaClient> mockedKafkaClient = mockStatic(KafkaClient.class)) {
@@ -75,6 +94,11 @@ public class InstructionEventGeneratorTest {
     }
   }
 
+  /**
+   * Verifies that {@link InstructionEventGenerator#pushInstructionEvent(String, Map)}
+   * throws a {@link ProjectCommonException} when the topic is null.
+   * @throws Exception if expected exception is not thrown.
+   */
   @Test(expected = ProjectCommonException.class)
   public void testPushInstructionEventNullTopic() throws Exception {
       Map<String, Object> data = new HashMap<>();
