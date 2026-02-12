@@ -55,13 +55,9 @@ public class Base64UtilTest {
         assertArrayEquals(bytes, decoded);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testDecodeInvalid() {
-        try {
-            Base64Util.decode("Invalid@@String", Base64Util.DEFAULT);
-        } catch (IllegalArgumentException e) {
-            assertEquals("bad base-64", e.getMessage());
-        }
+        Base64Util.decode("Invalid@@String", Base64Util.DEFAULT);
     }
 
     @Test
