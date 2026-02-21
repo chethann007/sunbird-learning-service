@@ -34,7 +34,7 @@ public class AccessTokenValidatorTest {
         payload.put("exp", expTime);
         payload.put("iss", "nullrealms/null");
         payload.put("kid", "kid");
-        payload.put("sub", "f:ca00376d-395f-aee687d7c8ad:10cca27c-2a13-443c-9e2b-c7d9589c1f5f");
+        payload.put("sub", "f:cassandrafederationid:10cca27c-2a13-443c-9e2b-c7d9589c1f5f");
         ObjectMapper mapper = new ObjectMapper();
         Mockito.when(Base64Util.decode(Mockito.any(String.class), Mockito.anyInt()))
                 .thenReturn(mapper.writeValueAsString(payload).getBytes());
@@ -179,7 +179,7 @@ public class AccessTokenValidatorTest {
         payload.put("exp", expTime);
         payload.put("iss", "http://localhost:8080/auth/realms/master");
         payload.put("kid", "kid");
-        payload.put("sub", "f:ca00376d-395f-aee687d7c8ad:10cca27c-2a13-443c-9e2b-c7d9589c1f5f");
+        payload.put("sub", "f:cassandrafederationid:10cca27c-2a13-443c-9e2b-c7d9589c1f5f");
         ObjectMapper mapper = new ObjectMapper();
         Mockito.when(Base64Util.decode(Mockito.any(String.class), Mockito.anyInt()))
                 .thenReturn(mapper.writeValueAsString(payload).getBytes());
